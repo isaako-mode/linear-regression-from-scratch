@@ -1,0 +1,44 @@
+
+#     # X = np.array(X)
+#     betas = np.atleast_2d(betas)
+
+#     # dim = betas.shape[0]
+#     # M = np.ndarray(shape=(dim,dim))
+
+#     # #M matrix
+#     # M[0][0] = 1
+#     # M[0][1] = np.sum(X)
+#     # M[1][0] = np.sum(X)
+#     # M[1][1] = np.sum(np.square(X))
+
+
+#     # b = np.ndarray(shape=(2,1))
+    
+#     # b[0] = sum(y)
+#     # b[1] = np.dot(X.T, y)
+
+#     #betas = np.atleast_2d(betas)
+#     betas[:, np.newaxis]
+#     gradient = X.T @ (X @ betas - y)
+
+#     # gradient = np.atleast_2d(gradient).T
+#     # gradient[:, np.newaxis]
+                
+    
+#     #gradient = np.subtract(gradient, y)
+#     return gradient
+
+
+def get_gradient(X, y, betas):
+    X = np.array(X).reshape(-1, 1)  # Ensure X is 2D
+    X = np.hstack((np.ones((X.shape[0], 1)), X))  # Add bias term if needed
+    y = np.array(y).reshape(-1, 1)  # Ensure y is a column vector
+    betas = np.array(betas).reshape(-1, 1)  # Ensure betas is a column vector
+
+    m = X.shape[0]  # Number of samples
+    
+    # Correct gradient computation
+    gradient = (1/m) * X.T @ (X @ betas - y)
+    
+    return gradient
+
